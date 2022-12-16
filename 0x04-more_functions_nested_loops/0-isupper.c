@@ -6,16 +6,12 @@
  * Return: 1 for upper letter or 0 for any else
  */
 
-int _isupper(int c)
+int _isupper(int x)
 
 {
-
-	if ((c >= 'A') && (c <= 'Z'))
-
-		return (1);
-
-
-
+	if (x >= 65 && x <= 90)
+	{
+	return (1);
+	}
 	return (0);
-
 }
