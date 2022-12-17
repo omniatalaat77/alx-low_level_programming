@@ -12,7 +12,7 @@ int main(void)
 
 	r = _islower('H');
 	_putchar(r + '0');
-	r = _islower('0');
+	r = _islower('o');
 	_putchar(r + '0');
 	r = _islower(108);
 	_putchar(r + '0');
