@@ -1,4 +1,3 @@
-#include "main.h"
 #include <stdio.h>
 
 /**
@@ -7,7 +6,6 @@
  */
 
 int main(void)
-
 {
 
 	int x;
@@ -16,7 +14,7 @@ int main(void)
 	{
 	if ((x % 3 == 0) && (x % 5 == 0))
 	{
-	printf("fizzBuzz");
+	printf("FizzBuzz");
 	}
 	else if (x % 3 == 0)
 	{
@@ -36,6 +34,5 @@ int main(void)
 	}
 	}
 	printf("\n");
-
 	return (0);
 }
