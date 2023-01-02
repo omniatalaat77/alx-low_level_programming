@@ -2,26 +2,28 @@
 #include <stdio.h>
 
 /**
- * Find the end of the dest string
- * Append src to end of dest
+ * _strcat - Concatenations two strings
+ * @dest: The destination string
+ * @src: The source string
+ * Return: A pointer to the resulting string dest
  */
 
 char *_strcat(char *dest, char *src)
 
 {
-	char *dest_end = dest;
-	    while (*dest_end != '\0')
-	    {
-		    dest_end++;
-	    }
+	int dlen = 0, i;
 
-	    while (*src != '\0')
-	    {
-		*dest_end = *src;
-		 dest_end++;
-        	 src++;
-	    }
-	    *dest_end = '\0';
+	while (dest[dlen])
+	{
+		dlen++;
+	}
 
-	    return dest;
+	for (i = 0; src[i] != 0; i++)
+	{
+		dest[dlen] = src[i];
+		dlen++;
+	}
+
+	dest[dlen] = '\0';
+	return (dest);
 }
