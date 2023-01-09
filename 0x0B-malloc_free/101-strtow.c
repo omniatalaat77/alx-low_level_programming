@@ -2,136 +2,85 @@
 #include <stdlib.h>
 
 /**
- * _strcmp - Like strcmp.
- * @s1: string.
- * @s2: string.
- * Return: int.
- */
-int _strcmp(char *s1, char *s2)
-{
-	int i = 0;
-
-
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
-		i++;
-	}
-	return (0);
-}
-
-/**
-  * _strlen - Find the lenght of a string.
-  * @s: String.
-  * @i: Position.
-  * Return: The lenght, integer.
-  */
-int _strlen(char *s, int i)
-{
-	int count = 0;
-
-	while (s[i] != ' ' && s[i] != '\0')
-	{
-		count++;
-		i++;
-	}
-	return (count);
-}
-
-/**
- * words - Count the numbers of words.
- * @str: String.
+ * number - function to calculate number of words
+ * @str: string being passed to check for words
  *
- * Return: Number of words.
+ * Return: number of words
  */
-int words(char *str)
+int number(char *str)
 {
-	int count = 0, flag = 0;
+	int a, num = 0;
 
-	while (*str)
+	for (a = 0; str[a] != '\0'; a++)
 	{
-		if (*str != ' ')
+		if (*str == ' ')
+			str++;
+		else
 		{
-			flag = 1;
+			for (; str[a] != ' ' && str[a] != '\0'; a++)
+				str++;
+			num++;
 		}
-		else if (flag == 1)
-		{
-			count++;
-			flag = 0;
-		}
-		str++;
 	}
-	return (count);
+	return (num);
+}
+/**
+ * free_everything - frees the memory
+ * @string: pointer values being passed for freeing
+ * @i: counter
+ */
+void free_everything(char **string, int i)
+{
+	for (; i > 0;)
+		free(string[--i]);
+	free(string);
 }
 
 /**
- * _strcpy - Copy elements from a string to another.
- * @s: String.
- * @i: Position.
- * @tmp: Array where it's saved.
- * Return: The array whit the elements.
- */
-char *_strcpy(char *s, int i, char *tmp)
-{
-	int j;
-
-	for (j = 0; s[i] != ' ' && s[i] != '\0'; i++, j++)
-	{
-		tmp[j] = s[i];
-	}
-	tmp[j] = '\0';
-
-	return (tmp);
-}
-
-/**
- * strtow - Extract all the words from an string.
- * @str: String.
- *
- * Return: Array of words.
+ * strtow - function that splits string into words
+ * @str: string being passed
+ * Return: null if string is empty or null or function fails
  */
 char **strtow(char *str)
 {
+	int total_words = 0, b = 0, c = 0, length = 0;
+	char **words, *found_word;
 
-	int i = 0, j = 0, pos, t;
-	char **tmp;
-
-	if (str == NULL || _strcmp(str, "") || (words(str) == 0))
-	{
+	if (str == 0 || *str == 0)
 		return (NULL);
-	}
-	tmp = malloc(sizeof(int *) * (words(str) + 1));
-	if (tmp == NULL)
-	{
+	total_words = number(str);
+	if (total_words == 0)
 		return (NULL);
-	}
-	while (str[i])
+	words = malloc((total_words + 1) * sizeof(char *));
+	if (words == 0)
+		return (NULL);
+	for (; *str != '\0' &&  b < total_words;)
 	{
-		if (str[i] != ' ')
-		{
-			pos = _strlen(str, i);
-			tmp[j] = malloc(sizeof(char) * (pos + 1));
-			if (tmp[j] == NULL)
-			{
-				for (t = j; t >= 0; t--)
-				{
-					free(tmp[t]);
-				}
-				free(tmp);
-				return (NULL);
-			}
-			_strcpy(str, i, tmp[j]);
-			j++;
-			i += pos;
-		}
+		if (*str == ' ')
+			str++;
 		else
 		{
-			i++;
+			found_word = str;
+			for (; *str != ' ' && *str != '\0';)
+			{
+				length++;
+				str++;
+			}
+			words[b] = malloc((length + 1) * sizeof(char));
+			if (words[b] == 0)
+			{
+				free_everything(words, b);
+				return (NULL);
+			}
+			while (*found_word != ' ' && *found_word != '\0')
+			{
+				words[b][c] = *found_word;
+				found_word++;
+				c++;
+			}
+			words[b][c] = '\0';
+			b++; c = 0; length = 0; str++;
 		}
 	}
-	tmp[j] = NULL;
-	return (tmp);
+	return (words);
 }
