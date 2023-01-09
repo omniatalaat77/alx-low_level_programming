@@ -80,8 +80,8 @@ char **strtow(char *str)
 			}
 			words[b][c] = '\0';
 			b++;
-			c = length = 0;
 			str++;
 		}
-	}return (words);
+	}
+	return (words);
 }
