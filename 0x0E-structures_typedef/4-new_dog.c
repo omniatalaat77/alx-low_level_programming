@@ -1,38 +1,35 @@
 #include "dog.h"
 #include <stdlib.h>
+
 /**
-  * new_dog - creates a new struct of type dog
-  * @name: struct parameter name
-  * @age: struct parameter age
-  * @owner: struct parameter owner
-  * Return: returns pointer to buffer of datatype dog
-  */
+ * new_dog - entry point
+ * @name: string from main, name of pet
+ * @age: number from main, age of pet
+ * @owner: string from main, owner of pet
+ * Return: p
+ */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	int nlen, olen, i;
-	dog_t *doggy;
-
-	nlen = olen = 0;
-	while (name[nlen++])
-		;
-	while (owner[olen++])
-		;
-	doggy = malloc(sizeof(dog_t));
-	if (doggy == NULL)
+	dog_t *p;
+	/* reserving memory to struct*/
+	p = malloc(sizeof(dog_t));
+	if (p == NULL)
 		return (NULL);
-
-	doggy->name = malloc(nlen * sizeof(doggy->name));
-	if (doggy == NULL)
+	/* Cpunting name pointer*/
+	if (name == NULL)
+	{
+		free(p);
+		free(owner);
 		return (NULL);
-	for (i = 0; i < nlen; i++)
-		doggy->name[i] = name[i];
-
-	doggy->age = age;
-
-	doggy->owner = malloc(olen * sizeof(doggy->owner));
-	if (doggy == NULL)
+	}
+	if (owner == NULL)
+	{
+		free(p);
+		free(name);
 		return (NULL);
-	for (i = 0; i < olen; i++)
-		doggy->owner[i] = owner[i];
-	return (doggy);
+	}
+	p->name = name;
+	p->age = age;
+	p->owner = owner;
+	return (p);
 }
