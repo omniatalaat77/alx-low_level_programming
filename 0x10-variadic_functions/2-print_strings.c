@@ -9,7 +9,6 @@
  * @n: This is the number of items
  *
  */
-
 void print_strings(const char *separator, const unsigned int n, ...)
 {
 	va_list ap;
